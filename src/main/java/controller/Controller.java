@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.DAO;
 
-@WebServlet(urlPatterns = {"/Controller", "/main", "/insert"})
+@WebServlet(urlPatterns = {"/Controller", "/main", "/insert", "/"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
