@@ -5,25 +5,26 @@
 <title>Agenda de Contatos</title>
 <link rel="icon" href="imagens/phone_icon.png">
 <link rel="stylesheet" href="style.css">
+<script src="scripts/validadorLogin.js"></script>
 </head>
 <body>
-	<h1>Tela de Login</h1>
-	<form name="frmcontato" action="">
+	<h1>Identificação de Usuário</h1>
+	<form name="frmlogin" action="dologin">
 		<table>
 			<tr>
 				<td>
-					<input type="text" name="usuario" placeholder="Usuario">
+					<input type="text" name="usuario" placeholder="Usuario" class="caixa">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="password" name="senha" placeholder="Senha">
+					<input type="password" name="senha" placeholder="Senha" class="caixa">
 				</td>
 			</tr>
 		</table>
-		<input type="button" value="Limpar">
-		<input type="button" value="Confirmar">
-		<input type="button" value="Novo Usuário">
+		<input type="button" value="Limpar" class="Botao">
+		<input type="button" value="Confirmar" class="Botao" onclick="validarLogin()">
+		<input type="button" value="Novo Usuário" class="Botao" href="novoUsuario.html">
 	</form>
 
 </body>
