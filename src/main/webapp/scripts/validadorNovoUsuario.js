@@ -3,19 +3,19 @@
  */
 
  function validar(){
-	let nome = frmcontato.nome.value
-	let fone = frmcontato.fone.value
-	let mail = frmcontato.email.value
+	let nome = frmnovousuario.nome.value
+	let fone = frmnovousuario.fone.value
+	let mail = frmnovousuario.email.value
 	if (nome === ""){
 		alert('Preencha o campo nome')
-		frmcontato.nome.focus()
+		frmnovousuario.nome.focus()
 		return false;
 	} else if (fone === ""){
 		alert('Preencha o campo fone')
-		frmcontato.fone.focus()
+		frmnovousuario.fone.focus()
 		return false;
 	} else {
-		document.forms["frmcontato"].submit()
+		document.forms["frmnovousuario"].submit()
 	}
  }
  

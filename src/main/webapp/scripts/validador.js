@@ -18,5 +18,5 @@ function validar(){
 		document.forms["frmcontato"].submit()
 	}
 	
-	alert('nome: '+ nome+ ' fone: '+ fone+ ' mail: '+ mail)
+//	alert('nome: '+ nome+ ' fone: '+ fone+ ' mail: '+ mail)
 }

@@ -5,6 +5,7 @@ public class JavaBeans {
 	private String nome;
 	private String fone;
 	private String email;
+	private String idUtilzador;
 	
 	public JavaBeans() {
 		super();
@@ -18,8 +19,6 @@ public class JavaBeans {
 		this.fone = fone;
 		this.email = email;
 	}
-
-
 
 	public String getIdcontato() {
 		return idcontato;
@@ -51,6 +50,14 @@ public class JavaBeans {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getIdUtilzador() {
+		return idUtilzador;
+	}
+
+	public void setIdUtilzador(String idUtilzador) {
+		this.idUtilzador = idUtilzador;
 	}
 
 }
