@@ -21,7 +21,7 @@
 		</table>
 		<input type="button" value="Limpar" class="Botao" onclick="limparCampos()">
 		<input type="button" value="Confirmar" class="Botao" onclick="validarLogin()">
-		<a href="novousuario" class="Botao">Novo Usuário</a>
+		<a href="NovoUsuario.jsp" class="Botao">Novo Usuário</a>
 	</form>
 
 </body>
