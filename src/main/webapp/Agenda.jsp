@@ -1,15 +1,20 @@
+<%@page import="commons.Variables"%>
+<%@page import="controller.Controller"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ page import="model.JavaBeans" %>
     <%@ page import="java.util.ArrayList" %>
+    <%@ page import="model.DAO" %>
     <% 
-    	ArrayList<JavaBeans> lista = (ArrayList<JavaBeans>) request.getAttribute("contatos");
-    	for (int i = 0; i < lista.size(); i++){
-    		out.println(lista.get(i).getIdcontato());
-    		out.println(lista.get(i).getNome());
-    		out.println(lista.get(i).getFone());
-    		out.println(lista.get(i).getEmail());
-    	}
+//     	ArrayList<JavaBeans> lista = (ArrayList<JavaBeans>) request.getAttribute("contatos");
+    	DAO dao = new DAO();
+    	ArrayList<JavaBeans> lista = dao.obterContatos(Variables.utilizador);
+//     	for (int i = 0; i < lista.size(); i++){
+//     		out.println(lista.get(i).getIdcontato());
+//     		out.println(lista.get(i).getNome());
+//     		out.println(lista.get(i).getFone());
+//     		out.println(lista.get(i).getEmail());
+//     	}
     %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -21,29 +26,31 @@
 </head>
 <body>
 	<h1>Agenda de Contatos</h1>
-	<a href="novoContato" class="Botao">Novo contato</a>
 	
-	<table class="tabela">
+	
+	<table >
 		<thead>
 			<tr>
 				<th>Id</th>
 				<th>Nome</th>
 				<th>Fone</th>
 				<th>Email</th>
+				<th>Opções</th>
 			</tr>
-			<tbody>
-				<% for (int i = 0; i < lista.size(); i++){ %>
-			    	<tr>
-			    		<td><%lista.get(i).getIdcontato();%>></td>
-			    		<td><%lista.get(i).getNome();%>></td>
-			    		<td><%lista.get(i).getFone();%>></td>
-			    		<td><%lista.get(i).getEmail();%>></td>
-			    	</tr>	
-			    	
-			    <% }%>
-			</tbody>
 		</thead>
-	
+		<tbody id="tabela">
+			<% for (int i = 0; i < lista.size(); i++){ %>
+		    	<tr>
+		    		<td><% out.println(lista.get(i).getIdcontato());%></td>
+		    		<td><% out.println(lista.get(i).getNome());%></td>
+		    		<td><% out.println(lista.get(i).getFone());%></td>
+		    		<td><% out.println(lista.get(i).getEmail());%></td>
+		    		<td><a href= "select" class="Botao">Editar</a></td>
+		    	</tr>	
+		    	
+		    <% }%>
+		</tbody>
 	</table>
+	<a href="NovoContato.html" class="Botao">Novo contato</a>
 </body>
 </html>

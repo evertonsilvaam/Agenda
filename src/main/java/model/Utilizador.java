@@ -2,7 +2,7 @@ package model;
 
 public class Utilizador {
 
-	private String idUtilizador;
+	private int idUtilizador;
 	private String usuario;
 	private String senha;
 
@@ -11,18 +11,18 @@ public class Utilizador {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Utilizador(String idUtilizador, String usuario, String senha) {
+	public Utilizador(int idUtilizador, String usuario, String senha) {
 		super();
 		this.idUtilizador = idUtilizador;
 		this.usuario = usuario;
 		this.senha = senha;
 	}
 
-	public String getIdUtilizador() {
+	public int getIdUtilizador() {
 		return idUtilizador;
 	}
 
-	public void setIdUtilizador(String idUtilizador) {
+	public void setIdUtilizador(int idUtilizador) {
 		this.idUtilizador = idUtilizador;
 	}
 

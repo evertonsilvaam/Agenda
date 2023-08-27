@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,13 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.cj.protocol.x.ContinuousOutputStream;
-
+import commons.Variables;
 import model.DAO;
 import model.JavaBeans;
 import model.Utilizador;
 
-@WebServlet(urlPatterns = {"/Controller", "/main", "/novocontato", "/novousuario", "/dologin"})
+@WebServlet(urlPatterns = {"/Controller", "/main", "/novocontato", "/novousuario", "/dologin", "/select"})
 public class Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	DAO dao = new DAO();
@@ -43,6 +41,9 @@ public class Controller extends HttpServlet {
 			break;
 		case "/dologin":
 			doLogin(request, response);
+			break;
+		case "/select":
+			listarContato(request, response);
 			break;
 		default:
 			System.out.println("Page not found");
@@ -88,12 +89,40 @@ public class Controller extends HttpServlet {
 		System.out.println(request.getParameter("confirmarsenha"));
 	}
 	
-	protected void doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("login.html");
+	protected void listarContato(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		response.sendRedirect("novoUsuario.html");
 		
-		System.out.println(request.getParameter("usuario"));
-		System.out.println(request.getParameter("senha"));
+//		System.out.println(request.getParameter("usuario"));
+//		System.out.println(request.getParameter("senha"));
+//		System.out.println(request.getParameter("confirmarsenha"));
+	}
+	
+	protected void doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		utilizador.setUsuario(request.getParameter("usuario"));
+		utilizador.setSenha(request.getParameter("senha"));
+		
+		System.out.println("Usuario dig: :"+utilizador.getUsuario());
+		System.out.println("Senha dig: :"+utilizador.getSenha());
+		
+		Utilizador responseUt = dao.realizaLogin(utilizador);
+		
+		System.out.println("IdUsuario bd: :"+responseUt.getIdUtilizador());
+		System.out.println("Usuario bd: :"+responseUt.getUsuario());
+		System.out.println("Senha bd: :"+responseUt.getSenha());
+		
+		Variables.utilizador = responseUt;
+		
+		String usuarioBD = utilizador.getUsuario();
+		String usuarioDG = responseUt.getUsuario();
+		
+		if(usuarioBD.equals(usuarioDG)) {
+			response.sendRedirect("Agenda.jsp");
+		} else {
+			response.sendRedirect("Index.html");
+			System.out.println("Erro de login");
+		}		
+		
 	}
 
 }

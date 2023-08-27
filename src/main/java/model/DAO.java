@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import commons.Variables;
+
 public class DAO {
 	/* Módulo de Conexão */
 
@@ -80,28 +82,45 @@ public class DAO {
 		}
 	}
 	
-	public void realizaLogin(Utilizador utilizador) {
-		String pesquisa = "select * from usuarios where utilizador = '?' and senha='?'";
+	public Utilizador realizaLogin(Utilizador utilizador) {
+		String pesquisa = ""
+				+ "select * "
+				+ "from usuarios "
+				+ "where usuario = ?";
+//				+ "and senha='?'";
 		try {
 			Connection con  = connectar();
 			
 			PreparedStatement pst = con.prepareStatement(pesquisa);
 			
 			pst.setString(1, utilizador.getUsuario());
-			pst.setString(2, utilizador.getSenha());
-	
-			pst.execute();
+			
+//			pst.setString(2, utilizador.getSenha());
+			System.out.println("SQL: "+pst.toString());
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				utilizador = new Utilizador();
+				utilizador.setIdUtilizador(rs.getInt(1));
+				utilizador.setUsuario(rs.getString(2));
+				utilizador.setSenha(rs.getString(3));
+			}
+			
 			con.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
+		return utilizador;
 	}
 	
 	public ArrayList<JavaBeans> obterContatos(Utilizador utilizador) {
 		ArrayList<JavaBeans> contatos = new ArrayList<>();
+		utilizador.setIdUtilizador(Variables.idUtilizador);
 		String pesquisa = ""
-				+ "select * from contatos "
+				+ "select idcontato, nome, fone, email "
+				+ "from contatos "
 				+ "where idusuario = ? "
 				+ "order by nome desc";
 		
@@ -110,15 +129,18 @@ public class DAO {
 			
 			PreparedStatement pst = con.prepareStatement(pesquisa);
 			
-			pst.setString(1, utilizador.getIdUtilizador());
+			pst.setInt(1, utilizador.getIdUtilizador());
+			
+			System.out.println("Query: "+ pst.toString());
 
 			ResultSet rs = pst.executeQuery();
-			
+			System.out.println("Resultado: "+ rs.toString());
 			while(rs.next()) {
 				JavaBeans contato = new JavaBeans();
 				contato.setIdcontato(rs.getString(1));
-				contato.setFone(rs.getString(2));
-				contato.setEmail(rs.getString(3));
+				contato.setNome(rs.getString(2));
+				contato.setFone(rs.getString(3));
+				contato.setEmail(rs.getString(4));
 				contatos.add(contato);
 			}
 
@@ -128,7 +150,6 @@ public class DAO {
 			e.printStackTrace();
 			return null;
 		}
-		
 		return contatos;
 	}
 
