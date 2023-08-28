@@ -6,15 +6,8 @@
     <%@ page import="java.util.ArrayList" %>
     <%@ page import="model.DAO" %>
     <% 
-//     	ArrayList<JavaBeans> lista = (ArrayList<JavaBeans>) request.getAttribute("contatos");
     	DAO dao = new DAO();
     	ArrayList<JavaBeans> lista = dao.obterContatos(Variables.utilizador);
-//     	for (int i = 0; i < lista.size(); i++){
-//     		out.println(lista.get(i).getIdcontato());
-//     		out.println(lista.get(i).getNome());
-//     		out.println(lista.get(i).getFone());
-//     		out.println(lista.get(i).getEmail());
-//     	}
     %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,6 +16,7 @@
 <title>Agenda de Contatos</title>
 <link rel="icon" href="imagens/phone_icon.png">
 <link rel="stylesheet" href="style.css">
+<script type="text/javascript" src="scripts/confirmacaoExclusao.js"></script>
 </head>
 <body>
 	<h1>Agenda de Contatos</h1>
@@ -45,7 +39,10 @@
 		    		<td><% out.println(lista.get(i).getNome());%></td>
 		    		<td><% out.println(lista.get(i).getFone());%></td>
 		    		<td><% out.println(lista.get(i).getEmail());%></td>
-		    		<td><a href= "select" class="Botao">Editar</a></td>
+		    		<td>
+			    		<a href= "select?idcon=<%=lista.get(i).getIdcontato() %>" class="Botao">Editar</a>
+			    		<a href= "javascript: confirmar(<%= lista.get(i).getIdcontato() %>)" class="BotaoExcluir">Excluir</a>
+		    		</td>
 		    	</tr>	
 		    	
 		    <% }%>

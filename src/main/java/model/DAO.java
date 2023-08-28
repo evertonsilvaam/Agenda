@@ -4,7 +4,13 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.catalina.connector.Response;
 
 import commons.Variables;
 
@@ -152,5 +158,87 @@ public class DAO {
 		}
 		return contatos;
 	}
+	
+	//select nome, fone, email from contatos where idusuario = 1 and idcontato = 1;
 
+	public JavaBeans obterDadosContato(JavaBeans contato) {
+		String pesquisa = ""
+				+ "select idcontato, nome, fone, email "
+				+ "from contatos "
+				+ "where idusuario = ? "
+				+ "and idcontato = ?";
+
+		try {
+			Connection con  = connectar();
+			
+			PreparedStatement pst = con.prepareStatement(pesquisa);
+			
+			pst.setInt(1, Variables.utilizador.getIdUtilizador());
+			pst.setString(2, contato.getIdcontato());
+			
+			System.out.println("SQL: "+pst.toString());
+			ResultSet rs = pst.executeQuery();
+			
+			while(rs.next()) {
+				contato.setIdcontato(rs.getString(1));
+				contato.setNome(rs.getString(2));
+				contato.setFone(rs.getString(3));
+				contato.setEmail(rs.getString(4));
+			}
+
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		return contato;
+	}
+	
+	public void salvarContato(JavaBeans contato) {
+		String query = ""
+				+ "UPDATE contatos "
+				+ "SET nome = ?, fone = ?, email = ? "
+				+ "WHERE idcontato = ? "
+				+ "and idusuario = ?";
+		
+		try {
+			Connection con  = connectar();
+			
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setString(1, contato.getNome());
+			pst.setString(2, contato.getFone());
+			pst.setString(3, contato.getEmail());
+			pst.setString(4, contato.getIdcontato());
+			pst.setInt(5, Variables.utilizador.getIdUtilizador());
+			
+			System.out.println("SQL: "+pst.toString());
+			pst.executeUpdate();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public void excluirContato(JavaBeans contato) {
+		String query = ""
+				+ "DELETE FROM contatos "
+				+ "WHERE idcontato = ? "
+				+ "and idusuario = ?";
+		
+		try {
+			Connection con  = connectar();
+			
+			PreparedStatement pst = con.prepareStatement(query);
+			pst.setString(1, contato.getIdcontato());
+			pst.setInt(2, Variables.utilizador.getIdUtilizador());
+			
+			System.out.println("SQL: "+pst.toString());
+			pst.executeUpdate();
+			con.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
