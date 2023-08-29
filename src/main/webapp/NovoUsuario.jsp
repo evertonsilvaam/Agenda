@@ -17,7 +17,7 @@
 				<td><input type="text" class="caixa" name="usuario" placeholder="Usuario"></td>
 			</tr>
 			<tr>
-				<td><input type="password" class="caixa" name="senha" placeholder="Senha" ontype="validarSenha()"></td>
+				<td><input type="password" class="caixa" name="senha" placeholder="Senha" onkeypress="validarSenha()"></td>
 			</tr>
 			<tr>
 				<td>
@@ -35,6 +35,6 @@
 		</table>
 		<input type="button" class="Botao" value="Limpar">
 		<input type="button" class="Botao" value="Confirmar" onclick="validar()">
-
+	</form>
 </body>
 </html>

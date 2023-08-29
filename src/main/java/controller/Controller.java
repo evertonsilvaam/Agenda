@@ -170,16 +170,10 @@ public class Controller extends HttpServlet {
 	protected void excluirContato(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println(request.getParameter("idcontato"));
-		System.out.println(request.getParameter("nome"));
-		System.out.println(request.getParameter("fone"));
-		System.out.println(request.getParameter("email"));
+
 		
-		contato.setIdcontato(request.getParameter("idcontato"));
-		contato.setNome(request.getParameter("nome"));
-		contato.setFone(request.getParameter("fone"));
-		contato.setEmail(request.getParameter("email"));
-		
-		dao.salvarContato(contato);
+		contato.setIdcontato(request.getParameter("idcontato"));		
+		dao.excluirContato(contato);
 		
 		response.sendRedirect("main");
 	}

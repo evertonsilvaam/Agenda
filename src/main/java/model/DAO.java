@@ -4,13 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.catalina.connector.Response;
 
 import commons.Variables;
 
@@ -100,8 +94,7 @@ public class DAO {
 			PreparedStatement pst = con.prepareStatement(pesquisa);
 			
 			pst.setString(1, utilizador.getUsuario());
-			
-//			pst.setString(2, utilizador.getSenha());
+
 			System.out.println("SQL: "+pst.toString());
 			ResultSet rs = pst.executeQuery();
 			

@@ -20,8 +20,7 @@
 </head>
 <body>
 	<h1>Agenda de Contatos</h1>
-	
-	
+	<a href="NovoContato.html" class="Botao">Novo contato</a>
 	<table >
 		<thead>
 			<tr>
@@ -44,10 +43,8 @@
 			    		<a href= "javascript: confirmar(<%= lista.get(i).getIdcontato() %>)" class="BotaoExcluir">Excluir</a>
 		    		</td>
 		    	</tr>	
-		    	
 		    <% }%>
 		</tbody>
 	</table>
-	<a href="NovoContato.html" class="Botao">Novo contato</a>
 </body>
 </html>
